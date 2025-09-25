@@ -1,12 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import api from '../../api/axios';
 
 // Add shopping item
 export const addShoppingItem = createAsyncThunk(
   'shopping/addItem',
   async (data, { rejectWithValue }) => {
     try {
-      const response = await axios.post('http://localhost:8080/api/shopping', data);
+      const response = await api.post('/api/shopping', data);
       return response.data;
     } catch (err) {
       return rejectWithValue(err.response?.data || err.message);
@@ -19,7 +19,7 @@ export const fetchShoppingList = createAsyncThunk(
   'shopping/fetchShoppingList',
   async (userId, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/shopping/user/${userId}`);
+      const response = await api.get(`/api/shopping/user/${userId}`);
       return response.data;
     } catch (err) {
       return rejectWithValue(err.response?.data || err.message);
@@ -32,7 +32,7 @@ export const updateShoppingItem = createAsyncThunk(
   'shopping/updateItem',
   async ({ id, quantity, price }, { rejectWithValue }) => {
     try {
-      const response = await axios.put(`http://localhost:8080/api/shopping/update/${id}`, {
+      const response = await api.put(`/api/shopping/update/${id}`, {
         quantity,
         price,
       });
@@ -48,7 +48,7 @@ export const deleteShoppingItem = createAsyncThunk(
   'shopping/deleteItem',
   async (id, { rejectWithValue }) => {
     try {
-      await axios.delete(`http://localhost:8080/api/shopping/${id}`);
+      await api.delete(`/api/shopping/${id}`);
       return id;
     } catch (err) {
       return rejectWithValue(err.response?.data || err.message);
@@ -61,7 +61,7 @@ export const fetchShoppingDates = createAsyncThunk(
   'shopping/fetchShoppingDates',
   async (userId, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/shopping/summary/date/${userId}`);
+      const response = await api.get(`/api/shopping/summary/date/${userId}`);
       return response.data; // array of [date, total]
     } catch (err) {
       return rejectWithValue(err.response?.data || err.message);
@@ -73,7 +73,7 @@ export const fetchShoppingShops = createAsyncThunk(
   'shopping/fetchShoppingShops',
   async (userId, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/shopping/summary/shop/${userId}`);
+      const response = await api.get(`/api/shopping/summary/shop/${userId}`);
       return response.data; // array of [shopName, total]
     } catch (err) {
       return rejectWithValue(err.response?.data || err.message);
@@ -86,7 +86,7 @@ export const saveShoppingSummary = createAsyncThunk(
   'shopping/saveShoppingSummary',
   async (summary, { rejectWithValue }) => {
     try {
-      const response = await axios.post('http://localhost:8080/api/shopping/summary/save', summary);
+      const response = await api.post('/api/shopping/summary/save', summary);
       return response.data;
     } catch (err) {
       return rejectWithValue(err.response?.data || err.message);

@@ -1,15 +1,15 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import api from '../../api/axios';
 
 // Async thunk to fetch shops
 export const fetchShops = createAsyncThunk('shops/fetchShops', async () => {
-  const response = await axios.get('http://localhost:8080/api/shops');
+  const response = await api.get('/api/shops');
   return response.data;
 });
 
 // Async thunk to add shop
 export const addShop = createAsyncThunk('shops/addShop', async (newShop) => {
-  const response = await axios.post('http://localhost:8080/api/shops', newShop);
+  const response = await api.post('/api/shops', newShop);
   return response.data; // The created shop from backend
 });
 

@@ -1,9 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import api from '../../api/axios';
 
 // Async thunk to fetch items
 export const fetchItems = createAsyncThunk('items/fetchItems', async () => {
-    const response = await axios.get('http://localhost:8080/api/items');
+    const response = await api.get('/api/items');
     return response.data;
 });
 
@@ -11,7 +11,7 @@ export const fetchItems = createAsyncThunk('items/fetchItems', async () => {
 export const addItem = createAsyncThunk(
     'items/addItem',
     async (newItem) => {
-        const response = await axios.post('http://localhost:8080/api/items', newItem);
+        const response = await api.post('/api/items', newItem);
         return response.data; // The created item from backend
     }
 );  

@@ -1,12 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import axios from 'axios'
+import api from '../../api/axios'
 
 // JWT login example
 export const loginJwt = createAsyncThunk(
     'auth/loginJwt',
     async ({ email, passwordHash }, { rejectWithValue }) => {
         try {
-            const res = await axios.post('http://localhost:8080/api/users/login', {
+            const res = await api.post('/api/users/login', {
                 email,
                 passwordHash
             })
@@ -22,7 +22,7 @@ export const registerUser = createAsyncThunk(
     'user/register',
     async ({ name, email, passwordHash }, { rejectWithValue }) => {
         try {
-            const res = await axios.post('http://localhost:8080/api/users', {
+            const res = await api.post('/api/users', {
                 name, email, passwordHash
             })
             return res.data
