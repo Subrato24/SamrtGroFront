@@ -188,7 +188,7 @@ const ShoppingListPage = () => {
                   />
                 </td>
                 <td className="fw-bold text-success">₹ {s.total}</td>
-                <td>{new Date(s.createdAt).toLocaleString()}</td>
+                <td>{s.createdAt}</td>
                 <td>
                   <button
                     className="btn btn-sm btn-outline-primary me-2"
