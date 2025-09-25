@@ -1,5 +1,5 @@
 import React from "react";
-import { Carousel, Navbar, Nav, Container, Card, Row, Col } from "react-bootstrap";
+import { Navbar, Nav, Container, Card, Row, Col, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../features/auth/authSlice";
@@ -17,7 +17,7 @@ function IndexPage() {
 
   return (
     <>
-      {/* Navbar with gradient */}
+      {/* Navbar */}
       <Navbar expand="lg" sticky="top" style={{ background: "linear-gradient(90deg, #667eea, #764ba2)" }}>
         <Container>
           <Navbar.Brand href="/info" className="fw-bold text-white">
@@ -51,101 +51,89 @@ function IndexPage() {
         </Container>
       </Navbar>
 
-      {/* Full Screen Carousel */}
-      <Carousel fade interval={3000}>
-        <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src="src/resources/wallpapers/W1.jpg"
-            alt="First slide"
-            style={{ height: "100vh", objectFit: "cover" }}
-          />
-          <Carousel.Caption
-            style={{
-              background: "rgba(0,0,0,0.5)",
-              borderRadius: "12px",
-              padding: "15px",
-            }}
-          >
-            <h3 className="fw-bold text-warning">Fresh Groceries</h3>
-            <p>Get the best deals on your daily essentials.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
+      {/* Hero Section */}
+      <section
+        style={{
+          background: "url('https://images.unsplash.com/photo-1542834369-f10ebf06d3cb?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat",
+          color: "white",
+          minHeight: "90vh",
+          display: "flex",
+          alignItems: "center",
+          textAlign: "center",
+        }}
+      >
+        <Container>
+          <h1 className="fw-bold display-4">Shop Smarter, Live Better 🌱</h1>
+          <p className="lead mt-3 mb-4">
+            Track expenses, get shop recommendations, and manage your grocery lists in one place.
+          </p>
+          {!user ? (
+            <Button variant="warning" size="lg" onClick={() => navigate("/")}>
+              Get Started
+            </Button>
+          ) : (
+            <Button variant="success" size="lg" onClick={() => navigate("/items")}>
+              Go to Dashboard
+            </Button>
+          )}
+        </Container>
+      </section>
 
-        <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src="src/resources/wallpapers/W2.jpg"
-            alt="Second slide"
-            style={{ height: "100vh", objectFit: "cover" }}
-          />
-          <Carousel.Caption
-            style={{
-              background: "rgba(0,0,0,0.5)",
-              borderRadius: "12px",
-              padding: "15px",
-            }}
-          >
-            <h3 className="fw-bold text-info">Best Shops Around You</h3>
-            <p>Choose your favorite shop and save more.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-
-        <Carousel.Item>
-          <img
-            className="d-block w-100"
-            src="src/resources/wallpapers/W3.jpg"
-            alt="Third slide"
-            style={{ height: "100vh", objectFit: "cover" }}
-          />
-          <Carousel.Caption
-            style={{
-              background: "rgba(0,0,0,0.5)",
-              borderRadius: "12px",
-              padding: "15px",
-            }}
-          >
-            <h3 className="fw-bold text-success">Easy Shopping Experience</h3>
-            <p>Track, compare, and plan your grocery list.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-      </Carousel>
-
-      {/* Feature Highlights Section */}
+      {/* Features Section */}
       <Container className="my-5">
-        <h2 className="text-center fw-bold mb-4 text-primary">Why Smart Grocery? 🤔</h2>
+        <h2 className="text-center fw-bold mb-5 text-primary">Why Choose Smart Grocery?</h2>
         <Row className="g-4">
           <Col md={4}>
-            <Card className="shadow border-0 h-100 text-center">
+            <Card className="shadow border-0 h-100 text-center p-3">
               <Card.Body>
                 <h4 className="fw-bold text-success">💰 Budget Tracking</h4>
-                <p>Easily monitor your expenses and stay within your budget.</p>
+                <p>Easily monitor your expenses and stay within your budget with real-time insights.</p>
               </Card.Body>
             </Card>
           </Col>
           <Col md={4}>
-            <Card className="shadow border-0 h-100 text-center">
+            <Card className="shadow border-0 h-100 text-center p-3">
               <Card.Body>
                 <h4 className="fw-bold text-info">🏪 Shop Suggestions</h4>
-                <p>Get the best shop recommendations based on your past purchases.</p>
+                <p>Get the best shop recommendations based on your past purchases and preferences.</p>
               </Card.Body>
             </Card>
           </Col>
           <Col md={4}>
-            <Card className="shadow border-0 h-100 text-center">
+            <Card className="shadow border-0 h-100 text-center p-3">
               <Card.Body>
                 <h4 className="fw-bold text-warning">📝 Easy Lists</h4>
-                <p>Create, edit, and manage your grocery lists seamlessly.</p>
+                <p>Create, edit, and manage your grocery lists seamlessly from any device.</p>
               </Card.Body>
             </Card>
           </Col>
         </Row>
       </Container>
 
+      {/* Call to Action */}
+      <section className="text-center py-5" style={{ background: "linear-gradient(90deg, #667eea, #764ba2)", color: "white" }}>
+        <h2 className="fw-bold">Ready to Make Grocery Shopping Easy?</h2>
+        <p className="mb-4">Join Smart Grocery today and simplify your life.</p>
+        {!user ? (
+          <Button variant="light" size="lg" onClick={() => navigate("/")}>
+            Sign Up Now
+          </Button>
+        ) : (
+          <Button variant="dark" size="lg" onClick={() => navigate("/items")}>
+            Start Shopping
+          </Button>
+        )}
+      </section>
+
       {/* Footer */}
-      <footer className="text-center py-4 mt-5" style={{ background: "#f8f9fa" }}>
+      <footer className="text-center py-4" style={{ background: "#f8f9fa" }}>
         <p className="mb-1 fw-bold">Made with ❤️ by Subrato Ghosh</p>
-        <a href="https://l.instagram.com/?u=https%3A%2F%2Fsubratoghosh.my.canva.site%2Fsubrato-ghosh-resume-project%3Ffbclid%3DPAZXh0bgNhZW0CMTEAAadkKt3TBcpq-rvAWzjp6R3q5VJwg1l6qYhfYfoQGKnAElna48aZCISYY1Tusg_aem_UN6g7b0KByFg28wXQcmxYw&e=AT3m7Mu-aohRiP5w4icwMNFKqMmFx-f9BfI8kgVZSHBuU-WG_PhAHnj6zMIVUTC4or5HrxdpcmnzAJznxTrCrX5meCkJN0Now_Z6VIeW-iw_caYP-6hCap-2nQ" className="text-decoration-none text-primary">
+        <a
+          href="https://subratoghosh.my.canva.site/subrato-ghosh-resume-project"
+          target="_blank"
+          rel="noreferrer"
+          className="text-decoration-none text-primary"
+        >
           Learn more about the creator
         </a>
       </footer>
