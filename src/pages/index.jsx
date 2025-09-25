@@ -16,29 +16,36 @@ function IndexPage() {
   };
 
   return (
-    <>
+    <div
+      style={{
+        background: "linear-gradient(135deg, #e0f7fa, #fff3e0)",
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
       {/* Navbar */}
-      <Navbar expand="lg" sticky="top" style={{ background: "linear-gradient(90deg, #667eea, #764ba2)" }}>
+      <Navbar expand="lg" style={{ background: "linear-gradient(90deg, #667eea, #764ba2)" }} variant="dark" sticky="top">
         <Container>
           <Navbar.Brand href="/info" className="fw-bold text-white">
             🛒 Smart Grocery
           </Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" className="bg-light" />
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
               {!user ? (
-                <Nav.Link href="/" className="text-white fw-bold">
+                <Nav.Link href="/" className="fw-bold text-white">
                   Login
                 </Nav.Link>
               ) : (
                 <>
-                  <Nav.Link href="/items" className="text-white fw-bold">
+                  <Nav.Link href="/items" className="fw-bold text-white">
                     Items
                   </Nav.Link>
-                  <Nav.Link href="/shops" className="text-white fw-bold">
+                  <Nav.Link href="/shops" className="fw-bold text-white">
                     Shops
                   </Nav.Link>
-                  <Nav.Link href="/ShoppingList" className="text-white fw-bold">
+                  <Nav.Link href="/ShoppingList" className="fw-bold text-white">
                     My List
                   </Nav.Link>
                   <Nav.Link onClick={handleLogout} className="text-warning fw-bold">
@@ -51,59 +58,48 @@ function IndexPage() {
         </Container>
       </Navbar>
 
-      {/* Hero Section */}
-      <section
-        style={{
-          background: "url('https://images.unsplash.com/photo-1542834369-f10ebf06d3cb?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat",
-          color: "white",
-          minHeight: "90vh",
-          display: "flex",
-          alignItems: "center",
-          textAlign: "center",
-        }}
-      >
-        <Container>
-          <h1 className="fw-bold display-4">Shop Smarter, Live Better 🌱</h1>
-          <p className="lead mt-3 mb-4">
-            Track expenses, get shop recommendations, and manage your grocery lists in one place.
-          </p>
-          {!user ? (
-            <Button variant="warning" size="lg" onClick={() => navigate("/")}>
-              Get Started
-            </Button>
-          ) : (
-            <Button variant="success" size="lg" onClick={() => navigate("/items")}>
-              Go to Dashboard
-            </Button>
-          )}
-        </Container>
-      </section>
+      {/* Welcome Section */}
+      <Container className="text-center my-5">
+        <h1 className="fw-bold text-primary">Welcome to Smart Grocery</h1>
+        <p className="lead mt-3 text-dark">
+          Your one-stop solution to manage groceries, track expenses, and find the best shops.
+        </p>
+        {!user ? (
+          <Button variant="success" size="lg" onClick={() => navigate("/")}>
+            Get Started
+          </Button>
+        ) : (
+          <Button variant="warning" size="lg" onClick={() => navigate("/items")}>
+            Go to Dashboard
+          </Button>
+        )}
+      </Container>
 
       {/* Features Section */}
       <Container className="my-5">
-        <h2 className="text-center fw-bold mb-5 text-primary">Why Choose Smart Grocery?</h2>
+        <h2 className="text-center mb-4 fw-bold text-secondary">Why Choose Us?</h2>
         <Row className="g-4">
           <Col md={4}>
-            <Card className="shadow border-0 h-100 text-center p-3">
-              <Card.Body>
-                <h4 className="fw-bold text-success">💰 Budget Tracking</h4>
-                <p>Easily monitor your expenses and stay within your budget with real-time insights.</p>
+            <Card className="h-100 shadow border-0">
+              <Card.Body className="text-center">
+                <h3 className="fw-bold text-success">💰 Budget Tracking</h3>
+                <p className="mt-3">Monitor and control your grocery expenses effortlessly.</p>
               </Card.Body>
             </Card>
           </Col>
           <Col md={4}>
-            <Card className="shadow border-0 h-100 text-center p-3">
-              <Card.Body>
-                <h4 className="fw-bold text-info">🏪 Shop Suggestions</h4>
-                <p>Get the best shop recommendations based on your past purchases and preferences.</p>
+            <Card className="h-100 shadow border-0">
+              <Card.Body className="text-center">
+                <h3 className="fw-bold text-info">🏪 Shop Suggestions</h3>
+                <p className="mt-3">Find the best shops based on your purchase history.</p>
               </Card.Body>
             </Card>
           </Col>
           <Col md={4}>
-            <Card className="shadow border-0 h-100 text-center p-3">
-              <Card.Body>
-                <h4 className="fw-bold text-warning">📝 Easy Lists</h4>
-                <p>Create, edit, and manage your grocery lists seamlessly from any device.</p>
+            <Card className="h-100 shadow border-0">
+              <Card.Body className="text-center">
+                <h3 className="fw-bold text-warning">📝 Easy Lists</h3>
+                <p className="mt-3">Create, manage, and check off items on your shopping list.</p>
               </Card.Body>
             </Card>
           </Col>
@@ -111,11 +107,11 @@ function IndexPage() {
       </Container>
 
       {/* Call to Action */}
-      <section className="text-center py-5" style={{ background: "linear-gradient(90deg, #667eea, #764ba2)", color: "white" }}>
-        <h2 className="fw-bold">Ready to Make Grocery Shopping Easy?</h2>
-        <p className="mb-4">Join Smart Grocery today and simplify your life.</p>
+      <Container fluid className="py-5 text-center" style={{ background: "linear-gradient(90deg, #ffecd2, #fcb69f)" }}>
+        <h2 className="fw-bold mb-3">Ready to simplify your shopping?</h2>
+        <p className="mb-4">Join Smart Grocery today and make shopping stress-free.</p>
         {!user ? (
-          <Button variant="light" size="lg" onClick={() => navigate("/")}>
+          <Button variant="primary" size="lg" onClick={() => navigate("/")}>
             Sign Up Now
           </Button>
         ) : (
@@ -123,21 +119,21 @@ function IndexPage() {
             Start Shopping
           </Button>
         )}
-      </section>
+      </Container>
 
       {/* Footer */}
-      <footer className="text-center py-4" style={{ background: "#f8f9fa" }}>
+      <footer className="text-center py-4 mt-auto" style={{ background: "#333", color: "#fff" }}>
         <p className="mb-1 fw-bold">Made with ❤️ by Subrato Ghosh</p>
         <a
           href="https://subratoghosh.my.canva.site/subrato-ghosh-resume-project"
           target="_blank"
           rel="noreferrer"
-          className="text-decoration-none text-primary"
+          className="text-decoration-none text-info"
         >
           Learn more about the creator
         </a>
       </footer>
-    </>
+    </div>
   );
 }
 
