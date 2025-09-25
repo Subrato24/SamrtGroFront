@@ -103,7 +103,7 @@ const ShoppingListPage = () => {
               <option value="">-- All Dates --</option>
               {dates.map((d, idx) => (
                 <option key={idx} value={d}>
-                  {new Date(d).toLocaleDateString()}
+                  {d.split("T")[0]}   {/* shows exactly what DB has */}
                 </option>
               ))}
             </select>
