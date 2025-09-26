@@ -49,11 +49,12 @@ const ShoppingListPage = () => {
     }
   };
 
-  const filteredList = list.filter(
-    (item) =>
-      (!selectedDate || item.createdAt.startsWith(selectedDate)) &&
-      (!selectedShop || item.shopName === selectedShop)
-  );
+  // ✅ Filter list using only the date part
+  const filteredList = list.filter((item) => {
+    const itemDate = item.createdAt.split("T")[0]; // extract YYYY-MM-DD
+    return (!selectedDate || itemDate === selectedDate) &&
+           (!selectedShop || item.shopName === selectedShop);
+  });
 
   const handleShowTotal = () => {
     if (!selectedDate || !selectedShop) {
@@ -102,8 +103,8 @@ const ShoppingListPage = () => {
             >
               <option value="">-- All Dates --</option>
               {dates.map((d, idx) => (
-                <option key={idx} value={d}>
-                  {d.split("T")[0]}   {/* shows exactly what DB has */}
+                <option key={idx} value={d.split("T")[0]}>
+                  {d.split("T")[0]}
                 </option>
               ))}
             </select>
