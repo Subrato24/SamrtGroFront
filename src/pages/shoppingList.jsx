@@ -49,10 +49,19 @@ const ShoppingListPage = () => {
     }
   };
 
-  // ✅ Filter list using only the date part
+  // ✅ IST-aware filtering
   const filteredList = list.filter((item) => {
-    const itemDate = item.createdAt.split("T")[0]; // extract YYYY-MM-DD
-    return (!selectedDate || itemDate === selectedDate) &&
+    // Convert UTC to IST
+    const utcDate = new Date(item.createdAt + "Z"); // treat as UTC
+    const istOffset = 5.5 * 60; // IST offset in minutes
+    const istDate = new Date(utcDate.getTime() + istOffset * 60 * 1000);
+
+    const yyyy = istDate.getFullYear();
+    const mm = String(istDate.getMonth() + 1).padStart(2, "0");
+    const dd = String(istDate.getDate()).padStart(2, "0");
+    const formattedDate = `${yyyy}-${mm}-${dd}`;
+
+    return (!selectedDate || formattedDate === selectedDate) &&
            (!selectedShop || item.shopName === selectedShop);
   });
 
