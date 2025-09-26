@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchShops, addShop } from "../features/shops/shopSlice";
+import { fetchShops, addShop, updateShop } from "../features/shops/shopSlice";
 import { useNavigate } from "react-router-dom";
 
 const ShopList = () => {
@@ -11,6 +11,7 @@ const ShopList = () => {
   const [newShop, setNewShop] = useState({ name: "", address: "" });
   const [editingShop, setEditingShop] = useState(null);
 
+  // ✅ Load shops
   useEffect(() => {
     dispatch(fetchShops());
   }, [dispatch]);
@@ -18,6 +19,7 @@ const ShopList = () => {
   if (status === "loading") return <p>Loading...</p>;
   if (status === "failed") return <p>Error: {error}</p>;
 
+  // ✅ Add new shop
   const handleAdd = () => {
     if (!newShop.name || !newShop.address) {
       alert("Please fill all fields");
@@ -27,15 +29,14 @@ const ShopList = () => {
     setNewShop({ name: "", address: "" });
   };
 
-  const handleBack = () => navigate("/home");
-
-  const handleUpdate = (shop) => {
-    console.log("Updating shop details:", shop);
+  // ✅ Update shop
+  const handleUpdate = () => {
+    if (!editingShop.name || !editingShop.address) {
+      alert("Please fill all fields");
+      return;
+    }
+    dispatch(updateShop({ id: editingShop.id, shop: editingShop }));
     setEditingShop(null);
-  };
-
-  const handleDelete = (id) => {
-    console.log("Deleting shop with id:", id);
   };
 
   return (
@@ -46,15 +47,15 @@ const ShopList = () => {
       }}
     >
       <div className="container">
-        {/* Page Header */}
+        {/* Header */}
         <div className="d-flex justify-content-between align-items-center mb-5 p-3 bg-dark text-white rounded shadow">
           <h2 className="m-0">🏬 Shop Management</h2>
-          <button className="btn btn-light fw-bold" onClick={handleBack}>
+          <button className="btn btn-light fw-bold" onClick={() => navigate("/home")}>
             🔙 Back to Home
           </button>
         </div>
 
-        {/* Add / Update Shop Form */}
+        {/* Add / Update Form */}
         <div className="card shadow-lg mb-5 border-0">
           <div className="card-body">
             <h5 className="mb-3 text-primary">
@@ -82,10 +83,7 @@ const ShopList = () => {
                   value={editingShop ? editingShop.address : newShop.address}
                   onChange={(e) =>
                     editingShop
-                      ? setEditingShop({
-                          ...editingShop,
-                          address: e.target.value,
-                        })
+                      ? setEditingShop({ ...editingShop, address: e.target.value })
                       : setNewShop({ ...newShop, address: e.target.value })
                   }
                 />
@@ -94,7 +92,7 @@ const ShopList = () => {
                 {editingShop ? (
                   <button
                     className="btn btn-warning w-100 fw-bold"
-                    onClick={() => handleUpdate(editingShop)}
+                    onClick={handleUpdate}
                   >
                     ✅ Update
                   </button>
@@ -132,16 +130,10 @@ const ShopList = () => {
                     <td>{shop.address}</td>
                     <td className="text-center">
                       <button
-                        className="btn btn-warning btn-sm me-2"
+                        className="btn btn-warning btn-sm"
                         onClick={() => setEditingShop(shop)}
                       >
                         ✏️ Update
-                      </button>
-                      <button
-                        className="btn btn-danger btn-sm"
-                        onClick={() => handleDelete(shop.id)}
-                      >
-                        🗑️ Delete
                       </button>
                     </td>
                   </tr>

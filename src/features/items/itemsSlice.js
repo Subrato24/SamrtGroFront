@@ -14,7 +14,12 @@ export const addItem = createAsyncThunk(
         const response = await api.post('/api/items', newItem);
         return response.data; // The created item from backend
     }
-);  
+);
+
+export const updateItem = createAsyncThunk('items/updateItem', async ({ id, item }) => {
+  const res = await api.put(`/api/items/update/${id}`, item);
+  return res.data;
+});
 
 
 const itemSlice = createSlice({
@@ -37,6 +42,11 @@ const itemSlice = createSlice({
             // addItem
             .addCase(addItem.fulfilled, (state, action) => {
                 state.list.push(action.payload);
+            })
+            .addCase(updateItem.fulfilled, (state, action) => {
+                const updated = action.payload;
+                // Use .map to create new array reference so React re-renders
+                state.list = state.list.map((i) => (i.id === updated.id ? updated : i));
             });
     },
 });

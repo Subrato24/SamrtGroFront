@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchItems, addItem } from "../features/items/itemsSlice";
+import { fetchItems, addItem, updateItem } from "../features/items/itemsSlice";
 import { fetchShops } from "../features/shops/shopSlice";
 import { useNavigate } from "react-router-dom";
 import { addShoppingItem } from "../features/shopping/shoppingSlice";
@@ -8,10 +8,9 @@ import { addShoppingItem } from "../features/shopping/shoppingSlice";
 const ItemList = () => {
   const dispatch = useDispatch();
   const { list, status, error } = useSelector((state) => state.items);
-  const shop = useSelector((state) => state.shops.list);
+  const shop = useSelector((state) => state.shops.list);  
   const navigate = useNavigate();
 
-  // Local state
   const [newItem, setNewItem] = useState({ brand: "", name: "", shopId: "" });
   const [editingItem, setEditingItem] = useState(null);
   const [cartCount, setCartCount] = useState(0);
@@ -34,20 +33,25 @@ const ItemList = () => {
       return;
     }
     dispatch(addItem(newItem));
-    setNewItem({ brand: "", name: "" });
+    setNewItem({ brand: "", name: "", shopId: "" });
   };
 
   const handleUpdate = (item) => {
-    console.log("Updating item:", item);
-    setEditingItem(null);
+    if (!item.brand || !item.name) {
+      alert("Please fill all fields");
+      return;
+    }
+
+    // Dispatch update and close edit mode after success
+    dispatch(updateItem({ id: item.id, item })).then((action) => {
+      if (action.payload) {
+        setEditingItem(null);
+      }
+    });
   };
 
   const handleBack = () => navigate("/home");
   const handleMyList = () => navigate("/ShoppingList");
-
-  const handleDelete = (id) => {
-    console.log("Deleting item with id:", id);
-  };
 
   const handleAddToCart = (item) => {
     if (!userId || !selectedShopId) {
@@ -113,7 +117,7 @@ const ItemList = () => {
           </div>
         </div>
 
-        {/* Add Item Form */}
+        {/* Add / Update Item Form */}
         <div className="card shadow-lg mb-5 border-0">
           <div className="card-body">
             <h5 className="mb-3 text-success">
@@ -192,12 +196,6 @@ const ItemList = () => {
                         onClick={() => setEditingItem(item)}
                       >
                         ✏️ Update
-                      </button>
-                      <button
-                        className="btn btn-danger btn-sm me-2"
-                        onClick={() => handleDelete(item.id)}
-                      >
-                        🗑️ Delete
                       </button>
                       <button
                         className="btn btn-success btn-sm"
