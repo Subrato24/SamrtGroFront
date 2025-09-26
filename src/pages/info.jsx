@@ -3,28 +3,28 @@ import { Container, Row, Col, Card, Button } from "react-bootstrap";
 
 function AboutPage() {
   return (
-    <div className="bg-light min-vh-100 py-5">
+    <div className="bg-light min-vh-100 py-5 d-flex flex-column">
       <Container>
         {/* Header Section */}
-        <Row className="text-center mb-5">
+        <Row className="text-center mb-5 px-3">
           <Col>
-            <h1 className="display-4 fw-bold text-primary">
+            <h1 className="fw-bold text-primary display-5 display-md-4">
               🌟 Smart Grocery Application
             </h1>
-            <p className="lead text-muted">
-              Your AI-powered grocery companion that helps you save money, time,
-              and effort while shopping.
+            <p className="lead text-muted mt-3">
+              Your AI-powered grocery companion that helps you save{" "}
+              <b>money, time, and effort</b> while shopping.
             </p>
           </Col>
         </Row>
 
         {/* Feature Cards */}
-        <Row className="g-4">
-          <Col md={4}>
+        <Row className="g-4 px-3">
+          <Col xs={12} md={6} lg={4}>
             <Card className="shadow-lg h-100 border-0 rounded-4">
               <Card.Body className="text-center">
                 <h3 className="text-success">🛍️ Smart Shop Suggestions</h3>
-                <p className="text-muted">
+                <p className="text-muted mt-3">
                   Based on your <b>previous purchases</b>, the app recommends
                   the <b>best shops</b> for your next shopping list. Save time
                   by going directly to the right place!
@@ -33,24 +33,24 @@ function AboutPage() {
             </Card>
           </Col>
 
-          <Col md={4}>
+          <Col xs={12} md={6} lg={4}>
             <Card className="shadow-lg h-100 border-0 rounded-4">
               <Card.Body className="text-center">
                 <h3 className="text-warning">📊 Budget Tracking</h3>
-                <p className="text-muted">
-                  Stay in control of your spending with <b>real-time budget
-                  insights</b>. The app keeps track of your grocery costs and
-                  helps you stick to your budget effortlessly.
+                <p className="text-muted mt-3">
+                  Stay in control of your spending with{" "}
+                  <b>real-time budget insights</b>. The app keeps track of your
+                  grocery costs and helps you stick to your budget effortlessly.
                 </p>
               </Card.Body>
             </Card>
           </Col>
 
-          <Col md={4}>
+          <Col xs={12} md={6} lg={4}>
             <Card className="shadow-lg h-100 border-0 rounded-4">
               <Card.Body className="text-center">
                 <h3 className="text-primary">📃 Shopping List Management</h3>
-                <p className="text-muted">
+                <p className="text-muted mt-3">
                   Easily create and manage shopping lists. The app ensures that
                   every list is optimized for <b>cost-effectiveness</b> and{" "}
                   <b>best shop availability</b>.
@@ -61,10 +61,10 @@ function AboutPage() {
         </Row>
 
         {/* Call-to-Action Section */}
-        <Row className="text-center mt-5">
+        <Row className="text-center mt-5 px-3">
           <Col>
-            <h2 className="fw-bold">Why Choose Smart Grocery?</h2>
-            <p className="text-muted fs-5">
+            <h2 className="fw-bold fs-2">Why Choose Smart Grocery?</h2>
+            <p className="text-muted fs-6 fs-md-5 mt-2">
               Because it’s more than just a grocery app — it’s your{" "}
               <b>smart shopping partner</b> that saves money and time while
               making your shopping experience smoother.
@@ -73,7 +73,7 @@ function AboutPage() {
               href="/"
               variant="primary"
               size="lg"
-              className="rounded-pill shadow-sm"
+              className="rounded-pill shadow-sm mt-3"
             >
               🚀 Start Smart Shopping Today
             </Button>
@@ -81,15 +81,15 @@ function AboutPage() {
         </Row>
 
         {/* Creator Section */}
-        <Row className="text-center mt-5">
+        <Row className="text-center mt-5 px-3">
           <Col>
-            <p className="text-muted">
+            <p className="text-muted mb-0">
               Created with ❤️ by{" "}
               <a
-                href="https://l.instagram.com/?u=https%3A%2F%2Fsubratoghosh.my.canva.site%2Fsubrato-ghosh-resume-project%3Ffbclid%3DPAZXh0bgNhZW0CMTEAAadkKt3TBcpq-rvAWzjp6R3q5VJwg1l6qYhfYfoQGKnAElna48aZCISYY1Tusg_aem_UN6g7b0KByFg28wXQcmxYw&e=AT3m7Mu-aohRiP5w4icwMNFKqMmFx-f9BfI8kgVZSHBuU-WG_PhAHnj6zMIVUTC4or5HrxdpcmnzAJznxTrCrX5meCkJN0Now_Z6VIeW-iw_caYP-6hCap-2nQ"
+                href="https://subratoghosh.my.canva.site/subrato-ghosh-resume-project"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="fw-bold text-decoration-none"
+                className="fw-bold text-decoration-none text-primary"
               >
                 Subrato Ghosh
               </a>

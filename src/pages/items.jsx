@@ -4,11 +4,12 @@ import { fetchItems, addItem, updateItem } from "../features/items/itemsSlice";
 import { fetchShops } from "../features/shops/shopSlice";
 import { useNavigate } from "react-router-dom";
 import { addShoppingItem } from "../features/shopping/shoppingSlice";
+import { Container, Row, Col } from "react-bootstrap";
 
 const ItemList = () => {
   const dispatch = useDispatch();
   const { list, status, error } = useSelector((state) => state.items);
-  const shop = useSelector((state) => state.shops.list);  
+  const shop = useSelector((state) => state.shops.list);
   const navigate = useNavigate();
 
   const [newItem, setNewItem] = useState({ brand: "", name: "", shopId: "" });
@@ -41,12 +42,8 @@ const ItemList = () => {
       alert("Please fill all fields");
       return;
     }
-
-    // Dispatch update and close edit mode after success
     dispatch(updateItem({ id: item.id, item })).then((action) => {
-      if (action.payload) {
-        setEditingItem(null);
-      }
+      if (action.payload) setEditingItem(null);
     });
   };
 
@@ -77,10 +74,10 @@ const ItemList = () => {
         background: "linear-gradient(135deg, #f8d7ff, #d0eaff, #d4f8d4)",
       }}
     >
-      <div className="container">
+      <Container>
         {/* Header with Cart Counter */}
-        <div className="d-flex justify-content-between align-items-center mb-5 p-3 bg-primary text-white rounded shadow">
-          <h2 className="m-0">🛍️ Smart Grocery Items</h2>
+        <div className="d-flex flex-column flex-md-row justify-content-between align-items-center mb-5 p-3 bg-primary text-white rounded shadow">
+          <h2 className="m-0 mb-3 mb-md-0">🛍️ Smart Grocery Items</h2>
           <div className="position-relative">
             <button
               className="btn btn-light position-relative fw-bold"
@@ -123,8 +120,8 @@ const ItemList = () => {
             <h5 className="mb-3 text-success">
               {editingItem ? "✏️ Update Item" : "➕ Add New Item"}
             </h5>
-            <div className="row g-3">
-              <div className="col-md-4">
+            <Row className="g-3">
+              <Col xs={12} md={4}>
                 <input
                   type="text"
                   className="form-control"
@@ -136,8 +133,8 @@ const ItemList = () => {
                       : setNewItem({ ...newItem, brand: e.target.value })
                   }
                 />
-              </div>
-              <div className="col-md-4">
+              </Col>
+              <Col xs={12} md={4}>
                 <input
                   type="text"
                   className="form-control"
@@ -149,8 +146,8 @@ const ItemList = () => {
                       : setNewItem({ ...newItem, name: e.target.value })
                   }
                 />
-              </div>
-              <div className="col-md-4">
+              </Col>
+              <Col xs={12} md={4}>
                 {editingItem ? (
                   <button
                     className="btn btn-warning w-100 fw-bold"
@@ -166,8 +163,8 @@ const ItemList = () => {
                     ➕ Add
                   </button>
                 )}
-              </div>
-            </div>
+              </Col>
+            </Row>
           </div>
         </div>
 
@@ -175,39 +172,41 @@ const ItemList = () => {
         <div className="card shadow-lg border-0">
           <div className="card-body">
             <h5 className="mb-3 text-dark">📦 Available Items</h5>
-            <table className="table table-hover align-middle">
-              <thead className="table-primary">
-                <tr>
-                  <th>ID</th>
-                  <th>Brand</th>
-                  <th>Name</th>
-                  <th className="text-center">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {list.map((item) => (
-                  <tr key={item.id} className="table-light">
-                    <td>{item.id}</td>
-                    <td>{item.brand}</td>
-                    <td>{item.name}</td>
-                    <td className="text-center">
-                      <button
-                        className="btn btn-warning btn-sm me-2"
-                        onClick={() => setEditingItem(item)}
-                      >
-                        ✏️ Update
-                      </button>
-                      <button
-                        className="btn btn-success btn-sm"
-                        onClick={() => handleAddToCart(item)}
-                      >
-                        📃 Add to List
-                      </button>
-                    </td>
+            <div className="table-responsive">
+              <table className="table table-hover align-middle">
+                <thead className="table-primary">
+                  <tr>
+                    <th>ID</th>
+                    <th>Brand</th>
+                    <th>Name</th>
+                    <th className="text-center">Actions</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {list.map((item) => (
+                    <tr key={item.id} className="table-light">
+                      <td>{item.id}</td>
+                      <td>{item.brand}</td>
+                      <td>{item.name}</td>
+                      <td className="text-center">
+                        <button
+                          className="btn btn-warning btn-sm me-2"
+                          onClick={() => setEditingItem(item)}
+                        >
+                          ✏️ Update
+                        </button>
+                        <button
+                          className="btn btn-success btn-sm"
+                          onClick={() => handleAddToCart(item)}
+                        >
+                          📃 Add to List
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
 
@@ -217,7 +216,7 @@ const ItemList = () => {
             🔙 Back to Home
           </button>
         </div>
-      </div>
+      </Container>
     </div>
   );
 };

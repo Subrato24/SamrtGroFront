@@ -16,8 +16,8 @@ const ShopList = () => {
     dispatch(fetchShops());
   }, [dispatch]);
 
-  if (status === "loading") return <p>Loading...</p>;
-  if (status === "failed") return <p>Error: {error}</p>;
+  if (status === "loading") return <p className="text-center mt-5">⏳ Loading...</p>;
+  if (status === "failed") return <p className="text-danger text-center mt-5">❌ Error: {error}</p>;
 
   // ✅ Add new shop
   const handleAdd = () => {
@@ -48,9 +48,12 @@ const ShopList = () => {
     >
       <div className="container">
         {/* Header */}
-        <div className="d-flex justify-content-between align-items-center mb-5 p-3 bg-dark text-white rounded shadow">
-          <h2 className="m-0">🏬 Shop Management</h2>
-          <button className="btn btn-light fw-bold" onClick={() => navigate("/home")}>
+        <div className="d-flex flex-column flex-md-row justify-content-between align-items-center mb-5 p-3 bg-dark text-white rounded shadow">
+          <h2 className="m-0 text-center text-md-start">🏬 Shop Management</h2>
+          <button
+            className="btn btn-light fw-bold mt-3 mt-md-0"
+            onClick={() => navigate("/home")}
+          >
             🔙 Back to Home
           </button>
         </div>
@@ -58,11 +61,11 @@ const ShopList = () => {
         {/* Add / Update Form */}
         <div className="card shadow-lg mb-5 border-0">
           <div className="card-body">
-            <h5 className="mb-3 text-primary">
+            <h5 className="mb-3 text-primary fw-bold">
               {editingShop ? "✏️ Update Shop" : "➕ Add New Shop"}
             </h5>
             <div className="row g-3">
-              <div className="col-md-4">
+              <div className="col-12 col-md-4">
                 <input
                   type="text"
                   className="form-control"
@@ -75,7 +78,7 @@ const ShopList = () => {
                   }
                 />
               </div>
-              <div className="col-md-4">
+              <div className="col-12 col-md-4">
                 <input
                   type="text"
                   className="form-control"
@@ -88,7 +91,7 @@ const ShopList = () => {
                   }
                 />
               </div>
-              <div className="col-md-4">
+              <div className="col-12 col-md-4">
                 {editingShop ? (
                   <button
                     className="btn btn-warning w-100 fw-bold"
@@ -112,34 +115,36 @@ const ShopList = () => {
         {/* Shops Table */}
         <div className="card shadow-lg border-0">
           <div className="card-body">
-            <h5 className="mb-3 text-dark">📋 Available Shops</h5>
-            <table className="table table-hover align-middle">
-              <thead className="table-info">
-                <tr>
-                  <th>ID</th>
-                  <th>Shop Name</th>
-                  <th>Address</th>
-                  <th className="text-center">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {list.map((shop) => (
-                  <tr key={shop.id} className="table-light">
-                    <td>{shop.id}</td>
-                    <td>{shop.name}</td>
-                    <td>{shop.address}</td>
-                    <td className="text-center">
-                      <button
-                        className="btn btn-warning btn-sm"
-                        onClick={() => setEditingShop(shop)}
-                      >
-                        ✏️ Update
-                      </button>
-                    </td>
+            <h5 className="mb-3 text-dark fw-bold">📋 Available Shops</h5>
+            <div className="table-responsive">
+              <table className="table table-hover align-middle">
+                <thead className="table-info">
+                  <tr>
+                    <th>ID</th>
+                    <th>Shop Name</th>
+                    <th>Address</th>
+                    <th className="text-center">Actions</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {list.map((shop) => (
+                    <tr key={shop.id} className="table-light">
+                      <td>{shop.id}</td>
+                      <td>{shop.name}</td>
+                      <td>{shop.address}</td>
+                      <td className="text-center">
+                        <button
+                          className="btn btn-warning btn-sm"
+                          onClick={() => setEditingShop(shop)}
+                        >
+                          ✏️ Update
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>

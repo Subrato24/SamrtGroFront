@@ -10,7 +10,6 @@ export default function HomePage() {
     const [passwordHash, setPasswordHash] = useState("");
     const [username, setName] = useState("");
 
-
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -18,19 +17,16 @@ export default function HomePage() {
         e.preventDefault();
         try {
             if (isLogin) {
-                // 🔹 Login
                 const resultAction = await dispatch(loginJwt({ email, passwordHash })).unwrap();
-                alert("welcome "+ resultAction.name);
+                alert("Welcome " + resultAction.name);
                 if (resultAction) {
-                    navigate("/home"); // redirect to list page
+                    navigate("/home");
                 }
             } else {
-                // 🔹 Sign up
                 await dispatch(registerUser({ name: username, email, passwordHash })).unwrap();
-                alert("Account created successfully!👍 Please login.😎");
+                alert("Account created successfully! 👍 Please login 😎");
                 setIsLogin(true);
                 navigate("/");
-
             }
         } catch (err) {
             alert("Error: " + (err.message || err));
@@ -38,8 +34,8 @@ export default function HomePage() {
     };
 
     return (
-        <div className="d-flex align-items-center justify-content-center vh-100 bg-light">
-            <div className="card shadow-lg p-4" style={{ width: "28rem" }}>
+        <div className="d-flex align-items-center justify-content-center vh-100 bg-light px-3">
+            <div className="card shadow-lg p-4 w-100" style={{ maxWidth: "480px" }}>
                 <h1 className="text-center mb-4">
                     Welcome to <span className="text-primary">SmartGro</span> 🛒
                 </h1>
@@ -55,6 +51,7 @@ export default function HomePage() {
                                     placeholder="Email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
+                                    required
                                 />
                             </div>
                             <div className="mb-3">
@@ -64,6 +61,7 @@ export default function HomePage() {
                                     placeholder="Password"
                                     value={passwordHash}
                                     onChange={(e) => setPasswordHash(e.target.value)}
+                                    required
                                 />
                             </div>
                             <button type="submit" className="btn btn-primary w-100">
@@ -71,7 +69,7 @@ export default function HomePage() {
                             </button>
                         </form>
                         <p className="text-center mt-3">
-                            Dont have an account?{" "}
+                            Don’t have an account?{" "}
                             <button
                                 type="button"
                                 onClick={() => setIsLogin(false)}
@@ -92,6 +90,7 @@ export default function HomePage() {
                                     placeholder="Full Name"
                                     value={username}
                                     onChange={(e) => setName(e.target.value)}
+                                    required
                                 />
                             </div>
                             <div className="mb-3">
@@ -101,6 +100,7 @@ export default function HomePage() {
                                     placeholder="Email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
+                                    required
                                 />
                             </div>
                             <div className="mb-3">
@@ -110,6 +110,7 @@ export default function HomePage() {
                                     placeholder="Password"
                                     value={passwordHash}
                                     onChange={(e) => setPasswordHash(e.target.value)}
+                                    required
                                 />
                             </div>
                             <button type="submit" className="btn btn-success w-100">
